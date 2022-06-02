@@ -1,20 +1,35 @@
 import {Component} from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import {Board} from "../../models/board-model";
-import {data} from "../../../assets/data";
+import {RootObject} from "../../../assets/data";
+import {MatDialog} from "@angular/material/dialog";
+import {
+  DialogElementsExampleDialogComponent
+} from "../dialog-elements-example-dialog/dialog-elements-example-dialog.component";
+import {DataService} from 'src/app/data.service';
 
 @Component({
   selector: 'app-main-view',
   templateUrl: './main-view.component.html',
   styleUrls: ['./main-view.component.scss']
 })
-export class MainViewComponent  {
+export class MainViewComponent {
 
-  board:Board=data
+  board: RootObject
+  value = ''
+  snow = true
+
+  constructor(
+    public dialog: MatDialog,
+    private dataService: DataService
+  ) {
+    this.board = dataService.getTask()
+
+  }
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      console.log(event)
     } else {
       transferArrayItem(
         event.previousContainer.data,
@@ -22,7 +37,17 @@ export class MainViewComponent  {
         event.previousIndex,
         event.currentIndex,
       );
+      console.log(event)
     }
   }
 
+  onClick(item: string): boolean {
+    this.snow = !!item.length
+    return this.snow
+  }
+
+  openDialog() {
+    this.dialog.open(DialogElementsExampleDialogComponent);
+  }
 }
+

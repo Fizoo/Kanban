@@ -1,0 +1,71 @@
+<form class="login-form" [formGroup]="form" (ngSubmit)="onSubmit($event)">
+
+  <div class="form-title">
+    <h1>Login</h1>
+  </div>
+
+  <label>
+    <input [ngClass]="{errorInput:email.touched && email.invalid}" type="text" placeholder="Username"
+           formControlName="email">
+    <div
+      *ngIf="email.touched && email.invalid">
+      <small *ngIf="email.errors?.['required']">enter your email address </small>
+      <small *ngIf="email.errors?.['email']">Please enter a valid email address</small>
+    </div>
+  </label>
+  <label>
+    <input [ngClass]="{errorInput:password.touched && password.invalid}" type="password" placeholder="Password"
+           formControlName="password">
+    <ng-container
+      *ngIf=" password.invalid && password.touched">
+      <small *ngIf="password.errors?.['required']"> Password required</small>
+      <small *ngIf="password.errors?.['minlength']">
+        Min length password is {{password.errors?.['minlength']['requiredLength']}}
+        Now {{password.errors?.['minlength']['actualLength']}}
+      </small>
+    </ng-container>
+  </label>
+
+
+  <div class="remember-me">
+    <input class="input-checkbox" type="checkbox" id="ckb1"
+           formControlName="checkbox"
+    >
+    <label for="ckb1" class="label-checkbox">
+      <i [ngStyle]="{color:checkbox.value?'#c87ef0':'#fff'}"
+         class="bi bi-check-lg"></i>
+      <span class="txt1">
+            Remember me click here.
+          </span>
+    </label>
+  </div>
+
+  <button class="red" type="submit" [disabled]="form.invalid">
+    <i class="bi bi-lock-fill"></i>
+    Login
+  </button>
+
+  <p>Login with ...</p>
+  <div class="social-media">
+    <button class="so-icons" type="button">
+      <i class="bi bi-facebook"></i>
+    </button>
+    <button class="so-icons" type="button">
+      <i class="bi bi-twitter"></i>
+    </button>
+    <button class="so-icons" type="button">
+      <i class="bi bi-linkedin"></i>
+    </button>
+    <button class="so-icons" type="button">
+      <i class="bi bi-google"></i>
+    </button>
+  </div>
+
+  <button class="red" type="button">
+    <i class="bi bi-unlock-fill"></i>
+    Forgot Password ?
+  </button>
+
+</form>
+
+

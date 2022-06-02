@@ -9,15 +9,16 @@
 
   <div class="board">
     <div class="board-bar">
-      <p class="board-name">
-        Board Name
-      </p>
+     <div class="board-form">
+       <input type="text" placeholder="Search..." [(ngModel)]="value">
+       <button mat-raised-button (click)="openDialog()">Add new idea</button>
+     </div>
     </div>
 
     <div class="board-wrapper">
       <div class="board-columns" cdkDropListGroup>
         <div class="board-column"
-             *ngFor="let column of board.columns"
+             *ngFor="let column of board"
         >
           <div class="column-title">
             {{column.name}}
@@ -28,14 +29,15 @@
                [cdkDropListData]="column.tasks"
                (cdkDropListDropped)="drop($event)"
           >
-            <div class="task" *ngFor="let item of column.tasks" cdkDrag>
-              {{item}}
-            </div>
+                <div
+                  [ngStyle]="{display:(item|search:value).length>0?'flex':'none'}"
+                  class="task"
+                  *ngFor="let item of column.tasks"
+                  cdkDrag>
+                        {{item |search:value}}
+                </div>
           </div>
-
         </div>
-
-
     </div>
   </div>
 </div>

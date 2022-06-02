@@ -1,0 +1,19 @@
+<div class="container-wrap">
+  <div class="header">
+    <h2>Admin</h2>
+    <div *ngIf="isAuth; else log" class="user">
+      <img src="././assets/img/88.jpg" alt="">
+      <p>Oleg</p>
+      <p>{{isAuth}}</p>
+      <button (click)="logout()" mat-button>Exit</button>
+    </div>
+    <ng-template #log>
+      <div class="user">
+        <button [routerLink]="['/admin','login']"  mat-button>Login</button>
+      </div>
+    </ng-template>
+  </div>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</div>
