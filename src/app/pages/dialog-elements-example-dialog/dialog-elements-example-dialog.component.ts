@@ -3,7 +3,7 @@ import {MatDialogRef} from "@angular/material/dialog";
 import {DataService} from "../../data.service";
 
 interface ITask {
- name:string
+  name:string
   tasks:string[]
 }
 

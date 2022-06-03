@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import {RootObject} from "../../../assets/data";
+import {res, RootObject} from "../../../assets/data";
 import {MatDialog} from "@angular/material/dialog";
 import {
   DialogElementsExampleDialogComponent
@@ -14,7 +14,7 @@ import {DataService} from 'src/app/data.service';
 })
 export class MainViewComponent {
 
-  board: RootObject
+  board:any
   value = ''
   snow = true
 
@@ -22,8 +22,8 @@ export class MainViewComponent {
     public dialog: MatDialog,
     private dataService: DataService
   ) {
-    this.board = dataService.getTask()
-
+    //this.board = res
+    dataService.getTask().subscribe(res=>this.board=res)
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -48,6 +48,10 @@ export class MainViewComponent {
 
   openDialog() {
     this.dialog.open(DialogElementsExampleDialogComponent);
+
+    this.dataService.getTask().subscribe(data=>{
+      console.log(data)
+    })
   }
 }
 
