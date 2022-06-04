@@ -31,9 +31,7 @@ export class DialogElementsExampleDialogComponent  {
       name:'Ideas',
       tasks:[this.text]
     }
-    this.dataService.create(task).subscribe(()=>{
-      console.log('good')
-    })
+    this.dataService.create(task).subscribe()
     this.dataService.addTask(this.text)
     this.dialogRef.close();
   }

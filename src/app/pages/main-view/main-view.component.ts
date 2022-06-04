@@ -14,7 +14,7 @@ import {DataService} from 'src/app/data.service';
 })
 export class MainViewComponent {
 
-  board:any
+  board:RootObject
   value = ''
   snow = true
 
@@ -22,14 +22,15 @@ export class MainViewComponent {
     public dialog: MatDialog,
     private dataService: DataService
   ) {
-    //this.board = res
-    dataService.getTask().subscribe(res=>this.board=res)
+    this.board = res
+
+    //with firebase database
+    //dataService.getTask().subscribe(res=>this.board=res)
   }
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-      console.log(event)
     } else {
       transferArrayItem(
         event.previousContainer.data,
@@ -37,7 +38,6 @@ export class MainViewComponent {
         event.previousIndex,
         event.currentIndex,
       );
-      console.log(event)
     }
   }
 
@@ -48,10 +48,8 @@ export class MainViewComponent {
 
   openDialog() {
     this.dialog.open(DialogElementsExampleDialogComponent);
-
-    this.dataService.getTask().subscribe(data=>{
-      console.log(data)
-    })
+    this.dataService.getTask().subscribe(
+    )
   }
 }
 
